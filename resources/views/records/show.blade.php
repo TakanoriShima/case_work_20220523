@@ -59,7 +59,7 @@
     <div class="row mt-3">
         <div class="col-sm-6 offset-sm-3">
 
-            {!! Form::open(['route' => ['comments.store', 'id' => $record->id, $patient->id]]) !!}
+            {!! Form::open(['route' => ['comments.store', 'patient_id' => $patient->id, 'record_id' => $record->id]]) !!}
                 <div class="form-group">
                     {!! Form::label('content', 'コメント: ', ['class' => 'text-primary']) !!}
                     {!! Form::text('content', old('content'), ['class' => 'form-control']) !!}

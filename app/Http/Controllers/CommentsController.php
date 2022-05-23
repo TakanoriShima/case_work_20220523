@@ -37,24 +37,25 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id, $patient_id)
+    public function store(Request $request, $patient_id, $record_id)
     {
-        // 注目している利用者とその相談記録の情報を取得
-        $patient = Patient::find($patient_id);
-        $record = Record::find($id);
         // validation
         $this->validate($request, [
             'content' => 'required',
         ]);
+
+        // 注目している利用者とその相談記録の情報を取得
+        $patient = Patient::find($patient_id);
+        $record = Record::find($record_id);
         
         // 入力情報の取得
         $content = $request->input('content');
        
         // 入力情報をデータベースに保存
-        \Auth::user()->add_comment($id, $content);
+        \Auth::user()->add_comment($record_id, $content);
     
         // リダイレクト
-        return redirect('patients/' . $patinet_id . '/records/' . $id)->with('flash_message', '新規コメント投稿を完了しました。');
+        return redirect('patients/' . $patient_id . '/records/' . $patient_id)->with('flash_message', '新規コメント投稿を完了しました。');
     }
 
     /**

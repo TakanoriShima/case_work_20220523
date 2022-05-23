@@ -55,16 +55,14 @@ Route::group(['middleware' => ['auth']], function () {
         // 利用者に対する相談記録
         Route::resource('records', 'RecordsController');
         
+        // ネスト
+        Route::group(['prefix' => 'records/{record_id}'], function () {
+            // 相談記録に対するコメント
+            Route::post('comment', 'CommentsController@store')->name('comments.store');
+        });
+        
         // 相談記録のキーワード検索
         Route::get('search', 'RecordsController@search')->name('records.search');
     });
-    
-    // ネスト
-    Route::group(['prefix' => 'records/{id}'], function () {
-        // 相談記録に対するコメント
-        Route::post('comment', 'CommentsController@store')->name('comments.store');
-    });
-    
-
 });
 
